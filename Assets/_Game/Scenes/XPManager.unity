@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 576967143}
   - component: {fileID: 576967142}
   - component: {fileID: 576967141}
-  - component: {fileID: 576967140}
+  - component: {fileID: 576967144}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -226,18 +226,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &576967140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576967139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fda99cb3e2f92cd4f928a9602966c58d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &576967141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -275,6 +263,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576967144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576967139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c24078c0daae242965468ac4d21b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PlayerExperience: 0
+  _PlayerLevel: 0
+  _PlayerProficiency: 0
+  _Strength: 1
+  _Dexterity: 1
+  _Constitution: 1
+  _Intelligence: 1
+  _Wisdom: 1
+  _Charisma: 1
+  _Acrobatics: 1
+  _AcrobaticsProficiency: 0
+  _AcrobaticsAbility: Dexterity
+  _AnimalHandling: 1
+  _AnimalHandlingProficiency: 0
+  _AnimalHandlingAbility: Charisma
+  _Arcana: 1
+  _ArcanaProficiency: 0
+  _ArcanaAbility: Intelligence
+  _Athletics: 1
+  _AthleticsProficiency: 0
+  _AthleticsAbility: Strength
+  _Deception: 1
+  _DecepitionProficiency: 0
+  _DeceptionAbility: Charisma
 --- !u!1 &1188801383
 GameObject:
   m_ObjectHideFlags: 0
