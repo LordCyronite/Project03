@@ -7,6 +7,17 @@ public class Fireball : MonoBehaviour
     public MenuControls _upgradeMenu;
     public PlayerData _playerData;
     public PlayerMana _playerMana;
+    public GameObject _fireball;
+
+    public void Start()
+    {
+        _fireball.SetActive(false);
+    }
+
+    void DisableFireball()
+    {
+        _fireball.SetActive(false);
+    }
 
     public void Update()
     {
@@ -19,5 +30,7 @@ public class Fireball : MonoBehaviour
     public void CastFireball()
     {
         _playerMana.CastSpell(5);
+        _fireball.SetActive(true);
+        Invoke("DisableFireball", 1f);
     }
 }
