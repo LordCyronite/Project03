@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [CreateAssetMenu(fileName = "PlayerData_", menuName = "Mechanics/Player")]
 
 public class PlayerData : MonoBehaviour
 {
+
+    
     [Header("General Information")]
 
     [SerializeField] private int _PlayerExperience = 0;
@@ -14,31 +17,59 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] private int _XPThreshhold = 100;
 
-    [SerializeField] private int _XPDelta = 20;
+    [SerializeField] private int _XPDelta = 50;
 
     [SerializeField] private int _PlayerProficiency = 2;
 
-    [SerializeField] private int _HealthBase = 100;
+    [SerializeField] public int _HealthBase = 100;
 
-    [SerializeField] private int _ManaBase = 100;
+    [SerializeField] public int _MaxHealth;
 
-    [SerializeField] private int _AbilityPoints = 0;
+    public PlayerHealth _playerHealth;
 
-    [SerializeField] private int _PerkPoints = 0;
+    [SerializeField] private TextMeshProUGUI _currentHealthTextView;
+
+    [SerializeField] public int _ManaBase = 100;
+
+    [SerializeField] public int _MaxMana;
+
+    public PlayerMana _playerMana;
+
+    [SerializeField] private TextMeshProUGUI _currentManaTextView;
+
+    [SerializeField] public int _AbilityPoints = 0;
+
+    [SerializeField] public int _PerkPoints = 0;
+
+    [Header("Level Up UI")]
+
+    [SerializeField] private TextMeshProUGUI _currentXPTextView;
+
+    public GameObject _uiObject;
+
+    [Header("Character Menu UI")]
+
+    [SerializeField] private TextMeshProUGUI _menuXPTextView;
+
+    [SerializeField] private TextMeshProUGUI _menuLevelTextView;
+
+    [SerializeField] private TextMeshProUGUI _menuAbilityTextView;
+
+    [SerializeField] private TextMeshProUGUI _menuPerkTextView;
 
     [Header("Abilities")]
 
-    [SerializeField] private int _Strength = 1;
+    [SerializeField] public int _Strength = 1;
 
-    [SerializeField] private int _Dexterity = 1;
+    [SerializeField] public int _Dexterity = 1;
 
-    [SerializeField] private int _Constitution = 1;
+    [SerializeField] public int _Constitution = 1;
 
-    [SerializeField] private int _Intelligence = 1;
+    [SerializeField] public int _Intelligence = 1;
 
-    [SerializeField] private int _Wisdom = 1;
+    [SerializeField] public int _Wisdom = 1;
 
-    [SerializeField] private int _Charisma = 1;
+    [SerializeField] public int _Charisma = 1;
 
     [Header("Skills")]
     
@@ -90,28 +121,54 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] private bool _SurvivalProficiency = false;
 
+
+    public void Start()
+    {
+        _uiObject.SetActive(false);
+
+        UpdateStats();
+    }
+
     public void XPGain(int XPGained)
     {
         _PlayerExperience += XPGained;
+        _currentXPTextView.text = "XP: " + _PlayerExperience.ToString();
 
         if (_PlayerExperience >= (_XPThreshhold + (_XPDelta * _PlayerLevel)))
         {
             LevelUp();
+            _uiObject.SetActive(true);
+            Invoke("DisableText", 3f);
         }
+    }
+
+    void DisableText()
+    {
+        _uiObject.SetActive(false);
     }
 
     public void LevelUp()
     {
         _PlayerExperience = 0;
 
+        _currentXPTextView.text = "XP: " + _PlayerExperience.ToString();
+
+        _PlayerLevel += 1;
+
         _AbilityPoints += 1;
 
         _PerkPoints += 5;
+
+        UpdateStats();
     }
 
 
-    public void Update()
+    public void UpdateStats()
     {
+        //Proficiency Manager
+
+        _PlayerProficiency = (1 + _PlayerLevel);
+
 
         //Skill Level Manager
 
@@ -380,10 +437,18 @@ public class PlayerData : MonoBehaviour
 
         //Stat Manager
 
-        int _MaxHeath = _HealthBase + (_Constitution * 10);
+        _MaxHealth = _HealthBase + (_Constitution * 10);
 
-        int _MaxMana = _ManaBase + (_Intelligence * 10);
+        _MaxMana = _ManaBase + (_Intelligence * 10);
 
+        //Menu UI Updater
+        _menuLevelTextView.text = "Level: " + _PlayerLevel.ToString();
+
+        _menuXPTextView.text = "XP: " + _PlayerExperience.ToString();
+
+        _menuAbilityTextView.text = "Ability Points: " + _AbilityPoints.ToString();
+
+        _menuPerkTextView.text = "Perk Points: " + _PerkPoints.ToString();
     }
 
 }
